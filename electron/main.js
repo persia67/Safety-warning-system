@@ -4,25 +4,28 @@ const path = require('path');
 function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
-    height: 800,
+    height: 900,
+    minWidth: 1024,
+    minHeight: 768,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js') // Optional, but good practice
+      preload: path.join(__dirname, 'preload.js')
     },
-    title: "SafetyGuard Admin"
+    title: "SafetyGuard Admin System",
+    icon: path.join(__dirname, '../public/favicon.ico'), // Ensure you have an icon
+    autoHideMenuBar: true // Modern look
   });
 
-  // In production, load the built index.html
-  // In development, you might load localhost:5173
   const isDev = !app.isPackaged;
   
   if (isDev) {
+      // In development, load from Vite dev server
       win.loadURL('http://localhost:5173');
-      win.webContents.openDevTools();
+      // Open DevTools for debugging
+      // win.webContents.openDevTools(); 
   } else {
-      // Points to the Vite build output (dist/index.html)
-      // Ensure Vite config has base: './'
+      // In production, load the built index.html
       win.loadFile(path.join(__dirname, '../dist/index.html'));
   }
 }
