@@ -155,7 +155,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   language: 'fa',
   themeColor: 'red',
   companyLogo: null,
-  companyName: 'SafetyGuard System'
+  companyName: 'سامانه جامع HSE'
 };
 
 export const MOCK_VIOLATIONS: Violation[] = [

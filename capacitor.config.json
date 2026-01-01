@@ -1,6 +1,6 @@
 {
   "appId": "com.safetyguard.admin",
-  "appName": "SafetyGuard Admin",
+  "appName": "SafetyGuard HSE",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"

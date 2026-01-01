@@ -43,7 +43,7 @@
   },
   "build": {
     "appId": "com.safetyguard.admin",
-    "productName": "SafetyGuard System",
+    "productName": "SafetyGuard HSE",
     "directories": {
       "output": "release"
     },
