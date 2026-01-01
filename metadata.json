@@ -1,0 +1,5 @@
+{
+  "name": "Safety warning system",
+  "description": "A comprehensive dashboard for tracking workplace safety violations, managing penalties, and generating AI-powered safety reports.",
+  "requestFramePermissions": []
+}
