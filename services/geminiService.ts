@@ -1,31 +1,21 @@
 import { GoogleGenAI } from "@google/genai";
-import { Violation } from "../types";
+import { Violation, Reward, WorkerOfMonthResult } from "../types";
 
 export const generateSafetyReport = async (violations: Violation[]): Promise<string> => {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    
-    // Prepare the data for the prompt
     const dataString = JSON.stringify(violations.map(v => ({
       type: v.violationType,
       severity: v.severity,
-      penalties: v.penaltyActions, // Included penalties in prompt
+      penalties: v.penaltyActions,
       date: v.date
     })));
 
     const prompt = `
-      به عنوان یک متخصص ارشد HSE (ایمنی، بهداشت و محیط زیست)، داده های زیر را که مربوط به تخلفات ایمنی اخیر در شرکت است تحلیل کن.
-      توجه کن که تخلفات شامل اقدامات تنبیهی مانند ممنوعیت اضافه کاری، عدم دریافت پاداش یا معرفی به کمیته انضباطی هستند.
-      
-      داده ها:
-      ${dataString}
-
-      لطفاً یک گزارش مدیریتی کوتاه و حرفه ای به زبان فارسی بنویس که شامل موارد زیر باشد:
-      1. خلاصه ای از وضعیت ایمنی و تنوع تنبیهات اعمال شده.
-      2. شناسایی الگوهای خطرناک یا تکرار شونده.
-      3. پیشنهادات مشخص برای کاهش این تخلفات.
-      
-      پاسخ باید با فرمت Markdown باشد. لحن باید رسمی و جدی باشد.
+      به عنوان یک متخصص ارشد HSE، داده های زیر را تحلیل کن.
+      داده ها: ${dataString}
+      یک گزارش مدیریتی کوتاه و حرفه ای به زبان فارسی بنویس که شامل خلاصه وضعیت، الگوها و پیشنهادات باشد.
+      پاسخ باید با فرمت Markdown باشد.
     `;
 
     const response = await ai.models.generateContent({
@@ -37,5 +27,58 @@ export const generateSafetyReport = async (violations: Violation[]): Promise<str
   } catch (error) {
     console.error("Gemini API Error:", error);
     return "متاسفانه در حال حاضر امکان برقراری ارتباط با هوش مصنوعی وجود ندارد.";
+  }
+};
+
+export const selectWorkerOfMonth = async (rewards: Reward[], violations: Violation[]): Promise<WorkerOfMonthResult> => {
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    
+    // Prepare comparative data
+    const rewardsData = rewards.filter(r => r.isApproved).map(r => ({
+      name: r.employeeName,
+      id: r.personnelId,
+      type: r.rewardType,
+      description: r.description,
+      date: r.date
+    }));
+
+    const violationIds = new Set(violations.map(v => v.personnelId));
+
+    const prompt = `
+      به عنوان یک مدیر منابع انسانی و HSE، از بین لیست پرسنل تشویق شده زیر، "کارگر نمونه ماه" را انتخاب کن.
+      
+      لیست تشویق شدگان:
+      ${JSON.stringify(rewardsData)}
+      
+      لیست سیاه (کسانی که در این ماه تخلف داشته اند و نباید انتخاب شوند):
+      ${Array.from(violationIds).join(', ')}
+
+      معیارهای انتخاب:
+      1. تعداد تشویق ها در این ماه.
+      2. اهمیت نوع تشویق (PPEUsage و SafeMethod اولویت بالاتری دارند).
+      3. شرح دقیق اقدامات مثبت.
+      
+      خروجی باید دقیقاً با فرمت JSON زیر باشد (فقط JSON و هیچ متن اضافه ای ننویس):
+      {
+        "winnerId": "کد پرسنلی نفر برنده",
+        "winnerName": "نام نفر برنده",
+        "reasoning": "دلیل انتخاب به صورت فارسی و حرفه ای در 3 جمله",
+        "period": "اردیبهشت 1403"
+      }
+    `;
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-pro-preview',
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json"
+      }
+    });
+
+    return JSON.parse(response.text || "{}");
+  } catch (error) {
+    console.error("Worker of Month AI Error:", error);
+    throw error;
   }
 };

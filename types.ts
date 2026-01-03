@@ -27,13 +27,14 @@ export interface Violation {
   rejectionReason?: string;
 }
 
-// --- New Reward Types ---
+// --- Refined Reward Types ---
 
 export type RewardType = 
-  | 'Exemplary'   // پرسنل نمونه
-  | 'SafetyWatch' // رعایت اصول ایمنی
-  | 'Innovation'  // پیشنهاد خلاقانه ایمنی
-  | 'Cooperation' // همکاری در شرایط بحران
+  | 'SafetyPrinciples'  // رعایت اصول ایمنی
+  | 'PPEUsage'          // استفاده از تجهیزات ایمنی
+  | 'SafeMethod'        // اجرای روش ایمن
+  | 'Innovation'        // پیشنهاد خلاقانه
+  | 'CrisisManagement'  // مدیریت بحران
   | 'Other';
 
 export interface Reward {
@@ -41,13 +42,21 @@ export interface Reward {
   employeeName: string;
   personnelId: string;
   department: string;
-  reporterName: string; // Who recommended the reward
+  reporterName: string;
   date: string;
   rewardType: RewardType;
   description: string;
-  rewardsGiven: string[]; // e.g., Cash, Certificate, Leave
+  rewardsGiven: string[];
   evidence?: string;
   isApproved: boolean;
+  isArchived?: boolean;
+}
+
+export interface WorkerOfMonthResult {
+  winnerId: string;
+  winnerName: string;
+  reasoning: string;
+  period: string;
 }
 
 export type SystemMode = 'VIOLATION' | 'REWARD';
@@ -67,15 +76,13 @@ export interface ReporterStat {
   lastReportDate: string;
 }
 
-// --- New Types for Auth & Settings ---
-
 export type Role = 
-  | 'HSE_MANAGER'   // مدیریت ایمنی
-  | 'HSE_OFFICER'   // افسر ایمنی
-  | 'HSE_EXPERT'    // کارشناس ایمنی
-  | 'ADMIN_MANAGER' // مدیریت اداری
-  | 'HR_MANAGER'    // مدیریت منابع انسانی
-  | 'PLANT_MANAGER'; // مدیریت کارخانه
+  | 'HSE_MANAGER'   
+  | 'HSE_OFFICER'   
+  | 'HSE_EXPERT'    
+  | 'ADMIN_MANAGER' 
+  | 'HR_MANAGER'    
+  | 'PLANT_MANAGER'; 
 
 export type Language = 'fa' | 'en';
 export type ThemeColor = 'red' | 'blue' | 'green' | 'violet' | 'slate';
@@ -83,7 +90,7 @@ export type ThemeColor = 'red' | 'blue' | 'green' | 'violet' | 'slate';
 export interface User {
   id: string;
   username: string;
-  password: string; // In a real app, this should be hashed
+  password: string;
   fullName: string;
   role: Role;
   avatar?: string;

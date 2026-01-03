@@ -1,6 +1,6 @@
 {
-  "appId": "com.safetyguard.admin",
-  "appName": "SafetyGuard HSE",
+  "appId": "com.hsesafewatch.admin",
+  "appName": "SafeWatch AI",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"

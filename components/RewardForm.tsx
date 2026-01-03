@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Reward, User, RewardType } from '../types';
-import { X, Camera, CheckSquare, Square, UserCheck, Medal, Star, Gift } from 'lucide-react';
+import { X, Camera, UserCheck, Medal, Star, Gift, ShieldCheck, HardHat, Zap } from 'lucide-react';
 
 interface RewardFormProps {
   onClose: () => void;
@@ -13,13 +13,12 @@ const REWARD_OPTIONS = [
   "مرخصی تشویقی",
   "لوح تقدیر",
   "کارت هدیه",
-  "درج در پرونده",
   "معرفی در برد"
 ];
 
 const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser }) => {
   const [formData, setFormData] = useState<Partial<Reward>>({
-    rewardType: 'SafetyWatch',
+    rewardType: 'SafetyPrinciples',
     date: new Date().toLocaleDateString('fa-IR'),
     rewardsGiven: [],
     isApproved: false, 
@@ -43,18 +42,18 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.employeeName || !formData.personnelId || !formData.department || !formData.reporterName) {
+    if (!formData.employeeName || !formData.personnelId || !formData.department) {
         alert("لطفاً تمام فیلدهای ستاره‌دار را تکمیل کنید.");
         return;
     }
 
     const newReward: Reward = {
       id: `R-${Math.floor(Math.random() * 10000)}`,
-      employeeName: formData.employeeName,
-      personnelId: formData.personnelId,
-      department: formData.department,
-      reporterName: formData.reporterName, 
-      date: formData.date || '1403/01/01',
+      employeeName: formData.employeeName!,
+      personnelId: formData.personnelId!,
+      department: formData.department!,
+      reporterName: formData.reporterName!, 
+      date: formData.date || '1403/02/01',
       rewardType: formData.rewardType as RewardType,
       description: formData.description || '',
       rewardsGiven: formData.rewardsGiven || [],
@@ -75,6 +74,14 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
     }
   };
 
+  const typeDetails = {
+    SafetyPrinciples: { label: "رعایت اصول ایمنی", icon: <ShieldCheck className="w-5 h-5" />, color: "bg-blue-100 text-blue-800" },
+    PPEUsage: { label: "استفاده از تجهیزات (PPE)", icon: <HardHat className="w-5 h-5" />, color: "bg-orange-100 text-orange-800" },
+    SafeMethod: { label: "اجرای روش ایمن", icon: <Zap className="w-5 h-5" />, color: "bg-emerald-100 text-emerald-800" },
+    Innovation: { label: "نوآوری و پیشنهاد", icon: <Star className="w-5 h-5" />, color: "bg-yellow-100 text-yellow-800" },
+    CrisisManagement: { label: "مدیریت بحران", icon: <Medal className="w-5 h-5" />, color: "bg-red-100 text-red-800" }
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden max-h-[90vh] overflow-y-auto border-t-4 border-emerald-500">
@@ -82,9 +89,9 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
           <div>
               <h2 className="text-xl font-bold text-emerald-800 flex items-center gap-2">
                 <Medal className="w-6 h-6" />
-                ثبت تشویق و پرسنل نمونه
+                ثبت تشویق و پیشنهاد پاداش
               </h2>
-              <p className="text-xs text-emerald-600 mt-1">اطلاعات جهت بررسی و تایید مدیریت ثبت می‌شود.</p>
+              <p className="text-xs text-emerald-600 mt-1">تشویقات بر اساس اصول ایمنی و عملکردهای مثبت ثبت می‌شوند.</p>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
             <X className="w-6 h-6" />
@@ -92,12 +99,10 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
         </div>
         
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          
-          {/* Reporter Info Section */}
           <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
              <div className="flex items-center gap-2 mb-2">
                 <UserCheck className="w-4 h-4 text-emerald-600" />
-                <label className="text-sm font-bold text-emerald-800">پیشنهاد دهنده</label>
+                <label className="text-sm font-bold text-emerald-800">ثبت کننده گزارش</label>
              </div>
              <input
                 required
@@ -114,8 +119,8 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
-                placeholder="مثال: 980112"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                placeholder="مثال: 990112"
                 onChange={e => setFormData({...formData, personnelId: e.target.value})}
               />
             </div>
@@ -124,29 +129,26 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
-                placeholder="مثال: علی رضایی"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                placeholder="مثال: رضا محمدی"
                 onChange={e => setFormData({...formData, employeeName: e.target.value})}
               />
             </div>
-            
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">واحد کاری *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">واحد / بخش *</label>
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
-                placeholder="مثال: تاسیسات / انبار"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                placeholder="مثال: کارگاه جوشکاری"
                 onChange={e => setFormData({...formData, department: e.target.value})}
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ</label>
               <input
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
-                placeholder="1402/12/20"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none"
                 defaultValue={formData.date}
                 onChange={e => setFormData({...formData, date: e.target.value})}
               />
@@ -154,115 +156,59 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
           </div>
 
           <div>
-             <label className="block text-sm font-medium text-gray-700 mb-3">نوع تشویق</label>
-             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <label className={`flex items-center p-4 rounded-xl border cursor-pointer transition-all ${formData.rewardType === 'Exemplary' ? 'bg-yellow-50 border-yellow-400 ring-1 ring-yellow-400' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
+             <label className="block text-sm font-medium text-gray-700 mb-3">دلیل اصلی تشویق</label>
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {(Object.keys(typeDetails) as Array<keyof typeof typeDetails>).map((type) => (
+                  <label key={type} className={`flex items-center p-3 rounded-xl border cursor-pointer transition-all ${formData.rewardType === type ? 'bg-emerald-50 border-emerald-500 ring-1 ring-emerald-500' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
                     <input 
                         type="radio" 
                         name="rewardType" 
                         className="hidden" 
-                        checked={formData.rewardType === 'Exemplary'}
-                        onChange={() => setFormData({...formData, rewardType: 'Exemplary'})}
+                        checked={formData.rewardType === type}
+                        onChange={() => setFormData({...formData, rewardType: type})}
                     />
-                    <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-full ${formData.rewardType === 'Exemplary' ? 'bg-yellow-200 text-yellow-800' : 'bg-gray-100 text-gray-400'}`}>
-                            <Star className="w-6 h-6 fill-current" />
+                    <div className="flex items-center gap-2">
+                        <div className={`p-1.5 rounded-lg ${formData.rewardType === type ? 'bg-emerald-200 text-emerald-800' : 'bg-gray-100 text-gray-400'}`}>
+                            {typeDetails[type].icon}
                         </div>
-                        <div>
-                            <div className="font-bold text-gray-800">پرسنل نمونه (Exemplary)</div>
-                            <div className="text-xs text-gray-500">انتخاب به عنوان کارمند نمونه ماه/سال</div>
-                        </div>
+                        <span className="text-xs font-bold text-gray-700">{typeDetails[type].label}</span>
                     </div>
-                </label>
-
-                <label className={`flex items-center p-4 rounded-xl border cursor-pointer transition-all ${formData.rewardType === 'SafetyWatch' ? 'bg-emerald-50 border-emerald-400 ring-1 ring-emerald-400' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
-                    <input 
-                        type="radio" 
-                        name="rewardType" 
-                        className="hidden" 
-                        checked={formData.rewardType === 'SafetyWatch'}
-                        onChange={() => setFormData({...formData, rewardType: 'SafetyWatch'})}
-                    />
-                    <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-full ${formData.rewardType === 'SafetyWatch' ? 'bg-emerald-200 text-emerald-800' : 'bg-gray-100 text-gray-400'}`}>
-                            <UserCheck className="w-6 h-6" />
-                        </div>
-                        <div>
-                            <div className="font-bold text-gray-800">رعایت اصول ایمنی</div>
-                            <div className="text-xs text-gray-500">رفتار ایمن و گزارش شرایط ناایمن</div>
-                        </div>
-                    </div>
-                </label>
-
-                 <label className={`flex items-center p-4 rounded-xl border cursor-pointer transition-all ${formData.rewardType === 'Innovation' ? 'bg-blue-50 border-blue-400 ring-1 ring-blue-400' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
-                    <input 
-                        type="radio" 
-                        name="rewardType" 
-                        className="hidden" 
-                        checked={formData.rewardType === 'Innovation'}
-                        onChange={() => setFormData({...formData, rewardType: 'Innovation'})}
-                    />
-                    <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-full ${formData.rewardType === 'Innovation' ? 'bg-blue-200 text-blue-800' : 'bg-gray-100 text-gray-400'}`}>
-                            <Gift className="w-6 h-6" />
-                        </div>
-                        <div>
-                            <div className="font-bold text-gray-800">پیشنهاد خلاقانه</div>
-                            <div className="text-xs text-gray-500">ارائه راهکار برای بهبود ایمنی</div>
-                        </div>
-                    </div>
-                </label>
+                  </label>
+                ))}
              </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">مستندات (عکس)</label>
-            <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all overflow-hidden relative">
-                    {imagePreview ? (
-                        <img src={imagePreview} alt="Preview" className="w-full h-full object-contain" />
-                    ) : (
-                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                            <Camera className="w-8 h-8 mb-3 text-gray-400" />
-                            <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">آپلود تصویر</span></p>
-                        </div>
-                    )}
-                    <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-                </label>
-            </div>
-          </div>
-
-          <div>
              <label className="block text-sm font-medium text-gray-700 mb-3">جوایز پیشنهادی</label>
-             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+             <div className="flex flex-wrap gap-2">
                {REWARD_OPTIONS.map((option) => (
-                 <label key={option} className={`flex items-center p-3 rounded-lg border cursor-pointer transition-all ${formData.rewardsGiven?.includes(option) ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
+                 <label key={option} className={`flex items-center px-4 py-2 rounded-full border cursor-pointer transition-all ${formData.rewardsGiven?.includes(option) ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
                    <input
                      type="checkbox"
+                     className="hidden"
                      checked={formData.rewardsGiven?.includes(option)}
                      onChange={() => handleRewardChange(option)}
-                     className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500 ml-2"
                    />
-                   <span className="text-sm select-none">{option}</span>
+                   <span className="text-xs font-medium">{option}</span>
                  </label>
                ))}
              </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">علت تشویق (توضیحات)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">شرح جزئیات عملکرد مثبت</label>
             <textarea
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all h-24 resize-none"
-              placeholder="شرح دلیل انتخاب..."
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none h-24 resize-none text-sm"
+              placeholder="توضیح دهید که فرد دقیقاً چه کار مثبتی انجام داده است..."
               onChange={e => setFormData({...formData, description: e.target.value})}
             />
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
-            <button type="button" onClick={onClose} className="px-6 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+            <button type="button" onClick={onClose} className="px-6 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">
               انصراف
             </button>
-            <button type="submit" className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium shadow-lg shadow-emerald-200 transition-all">
+            <button type="submit" className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium shadow-lg shadow-emerald-200">
               ثبت تشویق
             </button>
           </div>
