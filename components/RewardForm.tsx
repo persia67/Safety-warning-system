@@ -75,80 +75,80 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
   };
 
   const typeDetails = {
-    SafetyPrinciples: { label: "رعایت اصول ایمنی", icon: <ShieldCheck className="w-5 h-5" />, color: "bg-blue-100 text-blue-800" },
-    PPEUsage: { label: "استفاده از تجهیزات (PPE)", icon: <HardHat className="w-5 h-5" />, color: "bg-orange-100 text-orange-800" },
-    SafeMethod: { label: "اجرای روش ایمن", icon: <Zap className="w-5 h-5" />, color: "bg-emerald-100 text-emerald-800" },
-    Innovation: { label: "نوآوری و پیشنهاد", icon: <Star className="w-5 h-5" />, color: "bg-yellow-100 text-yellow-800" },
-    CrisisManagement: { label: "مدیریت بحران", icon: <Medal className="w-5 h-5" />, color: "bg-red-100 text-red-800" }
+    SafetyPrinciples: { label: "رعایت اصول ایمنی", icon: <ShieldCheck className="w-4 h-4 md:w-5 md:h-5" />, color: "bg-blue-100 text-blue-800" },
+    PPEUsage: { label: "استفاده از تجهیزات (PPE)", icon: <HardHat className="w-4 h-4 md:w-5 md:h-5" />, color: "bg-orange-100 text-orange-800" },
+    SafeMethod: { label: "اجرای روش ایمن", icon: <Zap className="w-4 h-4 md:w-5 md:h-5" />, color: "bg-emerald-100 text-emerald-800" },
+    Innovation: { label: "نوآوری و پیشنهاد", icon: <Star className="w-4 h-4 md:w-5 md:h-5" />, color: "bg-yellow-100 text-yellow-800" },
+    CrisisManagement: { label: "مدیریت بحران", icon: <Medal className="w-4 h-4 md:w-5 md:h-5" />, color: "bg-red-100 text-red-800" }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden max-h-[90vh] overflow-y-auto border-t-4 border-emerald-500">
-        <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-emerald-50/50">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-2 md:p-4">
+      <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden h-[95vh] md:max-h-[90vh] flex flex-col border-t-4 border-emerald-500">
+        <div className="flex justify-between items-center p-4 md:p-6 border-b border-gray-100 bg-emerald-50/50">
           <div>
-              <h2 className="text-xl font-bold text-emerald-800 flex items-center gap-2">
-                <Medal className="w-6 h-6" />
+              <h2 className="text-lg md:text-xl font-bold text-emerald-800 flex items-center gap-2">
+                <Medal className="w-5 h-5 md:w-6 md:h-6" />
                 ثبت تشویق و پیشنهاد پاداش
               </h2>
-              <p className="text-xs text-emerald-600 mt-1">تشویقات بر اساس اصول ایمنی و عملکردهای مثبت ثبت می‌شوند.</p>
+              <p className="text-[10px] md:text-xs text-emerald-600 mt-1">تشویقات بر اساس اصول ایمنی و عملکردهای مثبت ثبت می‌شوند.</p>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 md:w-6 md:h-6" />
           </button>
         </div>
         
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+        <form onSubmit={handleSubmit} className="p-4 md:p-6 space-y-4 md:space-y-6 overflow-y-auto flex-1">
+          <div className="bg-emerald-50 p-3 md:p-4 rounded-xl border border-emerald-100">
              <div className="flex items-center gap-2 mb-2">
                 <UserCheck className="w-4 h-4 text-emerald-600" />
-                <label className="text-sm font-bold text-emerald-800">ثبت کننده گزارش</label>
+                <label className="text-xs md:text-sm font-bold text-emerald-800">ثبت کننده گزارش</label>
              </div>
              <input
                 required
                 readOnly
                 type="text"
                 value={formData.reporterName}
-                className="w-full px-4 py-2 border border-emerald-200 rounded-lg bg-white text-gray-600 outline-none"
+                className="w-full px-3 py-2 text-sm border border-emerald-200 rounded-lg bg-white text-gray-600 outline-none"
              />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">کد پرسنلی *</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">کد پرسنلی *</label>
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                 placeholder="مثال: 990112"
                 onChange={e => setFormData({...formData, personnelId: e.target.value})}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">نام و نام خانوادگی *</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">نام و نام خانوادگی *</label>
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                 placeholder="مثال: رضا محمدی"
                 onChange={e => setFormData({...formData, employeeName: e.target.value})}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">واحد / بخش *</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">واحد / بخش *</label>
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                 placeholder="مثال: کارگاه جوشکاری"
                 onChange={e => setFormData({...formData, department: e.target.value})}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">تاریخ</label>
               <input
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg outline-none"
                 defaultValue={formData.date}
                 onChange={e => setFormData({...formData, date: e.target.value})}
               />
@@ -156,10 +156,10 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
           </div>
 
           <div>
-             <label className="block text-sm font-medium text-gray-700 mb-3">دلیل اصلی تشویق</label>
-             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">دلیل اصلی تشویق</label>
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
                 {(Object.keys(typeDetails) as Array<keyof typeof typeDetails>).map((type) => (
-                  <label key={type} className={`flex items-center p-3 rounded-xl border cursor-pointer transition-all ${formData.rewardType === type ? 'bg-emerald-50 border-emerald-500 ring-1 ring-emerald-500' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
+                  <label key={type} className={`flex items-center p-2 md:p-3 rounded-xl border cursor-pointer transition-all ${formData.rewardType === type ? 'bg-emerald-50 border-emerald-500 ring-1 ring-emerald-500' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
                     <input 
                         type="radio" 
                         name="rewardType" 
@@ -171,7 +171,7 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
                         <div className={`p-1.5 rounded-lg ${formData.rewardType === type ? 'bg-emerald-200 text-emerald-800' : 'bg-gray-100 text-gray-400'}`}>
                             {typeDetails[type].icon}
                         </div>
-                        <span className="text-xs font-bold text-gray-700">{typeDetails[type].label}</span>
+                        <span className="text-[11px] md:text-xs font-bold text-gray-700">{typeDetails[type].label}</span>
                     </div>
                   </label>
                 ))}
@@ -179,36 +179,36 @@ const RewardForm: React.FC<RewardFormProps> = ({ onClose, onSubmit, currentUser 
           </div>
 
           <div>
-             <label className="block text-sm font-medium text-gray-700 mb-3">جوایز پیشنهادی</label>
+             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">جوایز پیشنهادی</label>
              <div className="flex flex-wrap gap-2">
                {REWARD_OPTIONS.map((option) => (
-                 <label key={option} className={`flex items-center px-4 py-2 rounded-full border cursor-pointer transition-all ${formData.rewardsGiven?.includes(option) ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+                 <label key={option} className={`flex items-center px-3 py-1.5 md:px-4 md:py-2 rounded-full border cursor-pointer transition-all ${formData.rewardsGiven?.includes(option) ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
                    <input
                      type="checkbox"
                      className="hidden"
                      checked={formData.rewardsGiven?.includes(option)}
                      onChange={() => handleRewardChange(option)}
                    />
-                   <span className="text-xs font-medium">{option}</span>
+                   <span className="text-[10px] md:text-xs font-medium">{option}</span>
                  </label>
                ))}
              </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">شرح جزئیات عملکرد مثبت</label>
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">شرح جزئیات عملکرد مثبت</label>
             <textarea
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none h-24 resize-none text-sm"
+              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none h-20 md:h-24 resize-none"
               placeholder="توضیح دهید که فرد دقیقاً چه کار مثبتی انجام داده است..."
               onChange={e => setFormData({...formData, description: e.target.value})}
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
-            <button type="button" onClick={onClose} className="px-6 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">
+          <div className="flex justify-end gap-3 pt-3 md:pt-4 border-t border-gray-100 mt-auto">
+            <button type="button" onClick={onClose} className="px-4 py-2 md:px-6 md:py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-100 font-medium">
               انصراف
             </button>
-            <button type="submit" className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium shadow-lg shadow-emerald-200">
+            <button type="submit" className="px-4 py-2 md:px-6 md:py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium shadow-lg shadow-emerald-200">
               ثبت تشویق
             </button>
           </div>

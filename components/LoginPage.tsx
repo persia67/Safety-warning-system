@@ -58,66 +58,66 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, settings, error }) => {
       </div>
 
       <div className="relative z-10 w-full max-w-md p-4">
-        <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl overflow-hidden">
-          <div className="p-8 md:p-10">
-            <div className="flex flex-col items-center mb-8">
-              <div className={`w-20 h-20 rounded-2xl bg-gradient-to-tr from-white/20 to-white/5 flex items-center justify-center mb-4 shadow-lg border border-white/10`}>
+        <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden">
+          <div className="p-6 md:p-10">
+            <div className="flex flex-col items-center mb-6 md:mb-8">
+              <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-tr from-white/20 to-white/5 flex items-center justify-center mb-4 shadow-lg border border-white/10`}>
                 {settings.companyLogo ? (
-                    <img src={settings.companyLogo} alt="Logo" className="w-16 h-16 object-contain" />
+                    <img src={settings.companyLogo} alt="Logo" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
                 ) : (
-                    <Shield className="w-10 h-10 text-white" />
+                    <Shield className="w-8 h-8 md:w-10 md:h-10 text-white" />
                 )}
               </div>
-              <h1 className="text-2xl font-bold text-white tracking-wide">{settings.companyName}</h1>
-              <p className="text-white/60 text-sm mt-1">{t.loginTitle}</p>
+              <h1 className="text-xl md:text-2xl font-bold text-white tracking-wide text-center">{settings.companyName}</h1>
+              <p className="text-white/60 text-xs md:text-sm mt-1">{t.loginTitle}</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <div className="space-y-3 md:space-y-4">
                 <div className="group relative">
-                  <div className={`absolute ${settings.language === 'fa' ? 'right-4' : 'left-4'} top-3.5 transition-colors duration-300 text-white/40 ${getAccentColor()}`}>
-                    <UserIcon className="w-5 h-5" />
+                  <div className={`absolute ${settings.language === 'fa' ? 'right-4' : 'left-4'} top-3 md:top-3.5 transition-colors duration-300 text-white/40 ${getAccentColor()}`}>
+                    <UserIcon className="w-4 h-4 md:w-5 md:h-5" />
                   </div>
                   <input 
                     type="text" 
                     placeholder={t.username}
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className={`w-full bg-black/20 border border-white/10 rounded-xl py-3 ${settings.language === 'fa' ? 'pr-12 pl-4' : 'pl-12 pr-4'} text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 focus:bg-black/30 transition-all`}
+                    className={`w-full bg-black/20 border border-white/10 rounded-xl py-2.5 md:py-3 ${settings.language === 'fa' ? 'pr-10 md:pr-12 pl-4' : 'pl-10 md:pl-12 pr-4'} text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 focus:bg-black/30 transition-all text-sm md:text-base`}
                   />
                 </div>
                 
                 <div className="group relative">
-                  <div className={`absolute ${settings.language === 'fa' ? 'right-4' : 'left-4'} top-3.5 transition-colors duration-300 text-white/40 ${getAccentColor()}`}>
-                    <Lock className="w-5 h-5" />
+                  <div className={`absolute ${settings.language === 'fa' ? 'right-4' : 'left-4'} top-3 md:top-3.5 transition-colors duration-300 text-white/40 ${getAccentColor()}`}>
+                    <Lock className="w-4 h-4 md:w-5 md:h-5" />
                   </div>
                   <input 
                     type="password" 
                     placeholder={t.password}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full bg-black/20 border border-white/10 rounded-xl py-3 ${settings.language === 'fa' ? 'pr-12 pl-4' : 'pl-12 pr-4'} text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 focus:bg-black/30 transition-all`}
+                    className={`w-full bg-black/20 border border-white/10 rounded-xl py-2.5 md:py-3 ${settings.language === 'fa' ? 'pr-10 md:pr-12 pl-4' : 'pl-10 md:pl-12 pr-4'} text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 focus:bg-black/30 transition-all text-sm md:text-base`}
                   />
                 </div>
               </div>
 
               {error && (
-                <div className="bg-red-500/20 border border-red-500/30 text-red-200 text-sm py-2 px-3 rounded-lg text-center animate-in fade-in slide-in-from-top-1">
+                <div className="bg-red-500/20 border border-red-500/30 text-red-200 text-xs md:text-sm py-2 px-3 rounded-lg text-center animate-in fade-in slide-in-from-top-1">
                   {error}
                 </div>
               )}
 
               <button 
                 type="submit"
-                className={`w-full py-3.5 rounded-xl font-bold text-white shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 ${getButtonColor()}`}
+                className={`w-full py-3 md:py-3.5 rounded-xl font-bold text-white shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base ${getButtonColor()}`}
               >
                 <span>{t.loginBtn}</span>
-                <LogIn className={`w-5 h-5 ${settings.language === 'fa' ? 'rotate-180' : ''}`} />
+                <LogIn className={`w-4 h-4 md:w-5 md:h-5 ${settings.language === 'fa' ? 'rotate-180' : ''}`} />
               </button>
             </form>
           </div>
-          <div className="bg-black/20 p-4 text-center">
-             <p className="text-white/30 text-xs">Protected by SafetyGuard v2.0</p>
+          <div className="bg-black/20 p-3 md:p-4 text-center">
+             <p className="text-white/30 text-[10px] md:text-xs">Protected by SafetyGuard v2.0</p>
           </div>
         </div>
       </div>

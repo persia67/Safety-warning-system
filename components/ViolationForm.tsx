@@ -127,22 +127,22 @@ const ViolationForm: React.FC<ViolationFormProps> = ({ existingViolations, onClo
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center p-6 border-b border-gray-100">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-2 md:p-4">
+      <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden h-[95vh] md:max-h-[90vh] flex flex-col">
+        <div className="flex justify-between items-center p-4 md:p-6 border-b border-gray-100">
           <div>
-              <h2 className="text-xl font-bold text-gray-800">ثبت گزارش تخلف</h2>
-              <p className="text-xs text-orange-600 mt-1">گزارش پس از تایید مدیریت ایمنی ثبت نهایی می‌شود.</p>
+              <h2 className="text-lg md:text-xl font-bold text-gray-800">ثبت گزارش تخلف</h2>
+              <p className="text-[10px] md:text-xs text-orange-600 mt-1">گزارش پس از تایید مدیریت ایمنی ثبت نهایی می‌شود.</p>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
-            <X className="w-6 h-6" />
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors p-1">
+            <X className="w-5 h-5 md:w-6 md:h-6" />
           </button>
         </div>
         
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 md:p-6 space-y-4 md:space-y-6 overflow-y-auto flex-1">
           {formData.violationStage && formData.violationStage > 1 && (
-            <div className={`p-4 rounded-xl flex items-start gap-3 ${formData.violationStage === 3 ? 'bg-red-50 text-red-800 border border-red-200' : 'bg-orange-50 text-orange-800 border border-orange-200'}`}>
-              <AlertOctagon className="w-6 h-6 shrink-0 mt-0.5" />
+            <div className={`p-3 md:p-4 rounded-xl flex items-start gap-3 ${formData.violationStage === 3 ? 'bg-red-50 text-red-800 border border-red-200' : 'bg-orange-50 text-orange-800 border border-orange-200'}`}>
+              <AlertOctagon className="w-5 h-5 md:w-6 md:h-6 shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-bold text-sm">هشدار: تخلف مرحله {formData.violationStage}</h4>
                 <p className="text-xs mt-1">این پرسنل دارای سابقه تخلف می‌باشد.</p>
@@ -151,58 +151,58 @@ const ViolationForm: React.FC<ViolationFormProps> = ({ existingViolations, onClo
           )}
 
           {/* Reporter Info Section */}
-          <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+          <div className="bg-blue-50 p-3 md:p-4 rounded-xl border border-blue-100">
              <div className="flex items-center gap-2 mb-2">
                 <UserCheck className="w-4 h-4 text-blue-600" />
-                <label className="text-sm font-bold text-blue-800">اطلاعات کارشناس ثبت کننده</label>
+                <label className="text-xs md:text-sm font-bold text-blue-800">اطلاعات کارشناس ثبت کننده</label>
              </div>
              <input
                 required
                 readOnly
                 type="text"
                 value={formData.reporterName}
-                className="w-full px-4 py-2 border border-blue-200 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed outline-none"
+                className="w-full px-3 py-2 text-sm border border-blue-200 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed outline-none"
              />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">کد پرسنلی متخلف *</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">کد پرسنلی متخلف *</label>
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                 placeholder="مثال: 980112"
                 onChange={e => setFormData({...formData, personnelId: e.target.value})}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">نام و نام خانوادگی متخلف *</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">نام و نام خانوادگی متخلف *</label>
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                 placeholder="مثال: علی رضایی"
                 onChange={e => setFormData({...formData, employeeName: e.target.value})}
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">واحد کاری *</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">واحد کاری *</label>
               <input
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                 placeholder="مثال: تاسیسات / انبار"
                 onChange={e => setFormData({...formData, department: e.target.value})}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ وقوع</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">تاریخ وقوع</label>
               <input
                 type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                 placeholder="1402/12/20"
                 defaultValue={formData.date}
                 onChange={e => setFormData({...formData, date: e.target.value})}
@@ -210,9 +210,9 @@ const ViolationForm: React.FC<ViolationFormProps> = ({ existingViolations, onClo
             </div>
             
              <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">سطح خطر</label>
+              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1.5">سطح خطر</label>
               <select 
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                 onChange={e => setFormData({...formData, severity: e.target.value as Severity})}
                 defaultValue={Severity.MEDIUM}
               >
@@ -225,31 +225,31 @@ const ViolationForm: React.FC<ViolationFormProps> = ({ existingViolations, onClo
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">نوع تخلف *</label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">نوع تخلف *</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-3">
               {COMMON_VIOLATIONS.map((violation) => (
                 <div 
                   key={violation} 
                   onClick={() => toggleViolation(violation)}
-                  className={`flex items-center p-3 rounded-lg border cursor-pointer transition-all select-none ${selectedViolations.includes(violation) ? 'bg-indigo-50 border-indigo-300 text-indigo-900' : 'bg-white border-gray-200 hover:bg-gray-50'}`}
+                  className={`flex items-center p-2 md:p-3 rounded-lg border cursor-pointer transition-all select-none ${selectedViolations.includes(violation) ? 'bg-indigo-50 border-indigo-300 text-indigo-900' : 'bg-white border-gray-200 hover:bg-gray-50'}`}
                 >
                    {selectedViolations.includes(violation) ? 
-                      <CheckSquare className="w-5 h-5 text-indigo-600 ml-2 shrink-0" /> : 
-                      <Square className="w-5 h-5 text-gray-300 ml-2 shrink-0" />
+                      <CheckSquare className="w-4 h-4 md:w-5 md:h-5 text-indigo-600 ml-2 shrink-0" /> : 
+                      <Square className="w-4 h-4 md:w-5 md:h-5 text-gray-300 ml-2 shrink-0" />
                    }
-                   <span className="text-sm">{violation}</span>
+                   <span className="text-xs md:text-sm">{violation}</span>
                 </div>
               ))}
               
               <div 
                   onClick={() => setIsOtherSelected(!isOtherSelected)}
-                  className={`flex items-center p-3 rounded-lg border cursor-pointer transition-all select-none ${isOtherSelected ? 'bg-indigo-50 border-indigo-300 text-indigo-900' : 'bg-white border-gray-200 hover:bg-gray-50'}`}
+                  className={`flex items-center p-2 md:p-3 rounded-lg border cursor-pointer transition-all select-none ${isOtherSelected ? 'bg-indigo-50 border-indigo-300 text-indigo-900' : 'bg-white border-gray-200 hover:bg-gray-50'}`}
                 >
                    {isOtherSelected ? 
-                      <CheckSquare className="w-5 h-5 text-indigo-600 ml-2 shrink-0" /> : 
-                      <Square className="w-5 h-5 text-gray-300 ml-2 shrink-0" />
+                      <CheckSquare className="w-4 h-4 md:w-5 md:h-5 text-indigo-600 ml-2 shrink-0" /> : 
+                      <Square className="w-4 h-4 md:w-5 md:h-5 text-gray-300 ml-2 shrink-0" />
                    }
-                   <span className="text-sm">سایر موارد</span>
+                   <span className="text-xs md:text-sm">سایر موارد</span>
                 </div>
             </div>
 
@@ -257,7 +257,7 @@ const ViolationForm: React.FC<ViolationFormProps> = ({ existingViolations, onClo
                <div className="animate-in fade-in slide-in-from-top-2 duration-200">
                   <input
                     type="text"
-                    className="w-full px-4 py-2 border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-indigo-50/50"
+                    className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-indigo-50/50"
                     placeholder="شرح کوتاه تخلف را بنویسید..."
                     value={otherViolationText}
                     onChange={(e) => setOtherViolationText(e.target.value)}
@@ -267,15 +267,15 @@ const ViolationForm: React.FC<ViolationFormProps> = ({ existingViolations, onClo
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">مستندات (عکس)</label>
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">مستندات (عکس)</label>
             <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all overflow-hidden relative">
+                <label className="flex flex-col items-center justify-center w-full h-24 md:h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all overflow-hidden relative">
                     {imagePreview ? (
                         <img src={imagePreview} alt="Preview" className="w-full h-full object-contain" />
                     ) : (
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                            <Camera className="w-8 h-8 mb-3 text-gray-400" />
-                            <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">آپلود تصویر</span></p>
+                            <Camera className="w-6 h-6 md:w-8 md:h-8 mb-2 md:mb-3 text-gray-400" />
+                            <p className="mb-1 text-xs md:text-sm text-gray-500"><span className="font-semibold">آپلود تصویر</span></p>
                         </div>
                     )}
                     <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
@@ -284,36 +284,36 @@ const ViolationForm: React.FC<ViolationFormProps> = ({ existingViolations, onClo
           </div>
 
           <div>
-             <label className="block text-sm font-medium text-gray-700 mb-3">اقدامات تنبیهی پیشنهادی</label>
-             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">اقدامات تنبیهی پیشنهادی</label>
+             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 mb-2">
                {PENALTY_OPTIONS.map((option) => (
-                 <label key={option} className={`flex items-center p-3 rounded-lg border cursor-pointer transition-all ${formData.penaltyActions?.includes(option) ? 'bg-red-50 border-red-200 text-red-700' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
+                 <label key={option} className={`flex items-center p-2 md:p-3 rounded-lg border cursor-pointer transition-all ${formData.penaltyActions?.includes(option) ? 'bg-red-50 border-red-200 text-red-700' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
                    <input
                      type="checkbox"
                      checked={formData.penaltyActions?.includes(option)}
                      onChange={() => handlePenaltyChange(option)}
-                     className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500 ml-2"
+                     className="w-3.5 h-3.5 md:w-4 md:h-4 text-red-600 border-gray-300 rounded focus:ring-red-500 ml-2"
                    />
-                   <span className="text-sm select-none">{option}</span>
+                   <span className="text-xs md:text-sm select-none">{option}</span>
                  </label>
                ))}
              </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">توضیحات تکمیلی</label>
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">توضیحات تکمیلی</label>
             <textarea
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all h-24 resize-none"
+              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all h-20 md:h-24 resize-none"
               placeholder="شرح جزئیات..."
               onChange={e => setFormData({...formData, description: e.target.value})}
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
-            <button type="button" onClick={onClose} className="px-6 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+          <div className="flex justify-end gap-3 pt-3 md:pt-4 border-t border-gray-100 mt-auto">
+            <button type="button" onClick={onClose} className="px-4 py-2 md:px-6 md:py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-100 font-medium transition-colors">
               انصراف
             </button>
-            <button type="submit" className="px-6 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium shadow-lg shadow-red-200 transition-all">
+            <button type="submit" className="px-4 py-2 md:px-6 md:py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-medium shadow-lg shadow-red-200 transition-all">
               ارسال جهت تایید
             </button>
           </div>

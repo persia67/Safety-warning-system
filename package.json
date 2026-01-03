@@ -1,7 +1,7 @@
 {
   "name": "hse-safewatch-reward-ai",
   "private": true,
-  "version": "2.4.0",
+  "version": "2.5.1",
   "type": "module",
   "main": "electron/main.js",
   "scripts": {
@@ -43,7 +43,7 @@
   },
   "build": {
     "appId": "com.hsesafewatch.admin",
-    "productName": "HSE SafeWatch AI",
+    "productName": "SafeWatch AI",
     "directories": {
       "output": "release"
     },

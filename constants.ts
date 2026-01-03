@@ -1,10 +1,10 @@
 import { Violation, Severity, User, AppSettings, Reward } from './types';
 
-export const APP_VERSION = "2.4.0";
+export const APP_VERSION = "2.5.1";
 
 export const TRANSLATIONS = {
   fa: {
-    loginTitle: "ورود به سامانه پایش و پاداش",
+    loginTitle: "ورود به دیده‌بان هوشمند ایمنی",
     username: "نام کاربری",
     password: "رمز عبور",
     loginBtn: "ورود به پنل",
@@ -42,6 +42,14 @@ export const TRANSLATIONS = {
     archives: "بایگانی",
     selectWorkerOfMonth: "انتخاب کارگر نمونه ماه",
     reasoningTitle: "استدلال هوش مصنوعی برای انتخاب",
+    dataManagement: "مدیریت داده‌ها و پشتیبان‌گیری",
+    backupDesc: "از تمام اطلاعات سیستم (تخلفات، تشویقات، کاربران و تنظیمات) یک فایل پشتیبان تهیه کنید.",
+    downloadBackup: "دانلود فایل پشتیبان",
+    restoreDesc: "بازگردانی اطلاعات از فایل پشتیبان. توجه: اطلاعات فعلی جایگزین خواهند شد.",
+    uploadBackup: "آپلود فایل پشتیبان",
+    restoreSuccess: "اطلاعات با موفقیت بازیابی شد. صفحه مجددا بارگذاری می‌شود.",
+    restoreError: "خطا در خواندن فایل. لطفا از معتبر بودن فایل پشتیبان اطمینان حاصل کنید.",
+    exportData: "خروجی اکسل (CSV)",
     // Roles
     role_hse_manager: "مدیریت ایمنی (HSE)",
     role_hse_officer: "افسر ایمنی",
@@ -98,6 +106,14 @@ export const TRANSLATIONS = {
     archives: "Archives",
     selectWorkerOfMonth: "Worker of Month",
     reasoningTitle: "AI Selection Reasoning",
+    dataManagement: "Data Management & Backup",
+    backupDesc: "Download a full backup of system data (Violations, Rewards, Users, Settings).",
+    downloadBackup: "Download Backup",
+    restoreDesc: "Restore data from a backup file. Warning: Current data will be overwritten.",
+    uploadBackup: "Upload Backup File",
+    restoreSuccess: "Data restored successfully. Reloading...",
+    restoreError: "Error reading file. Please ensure it is a valid backup file.",
+    exportData: "Export Excel (CSV)",
     // Roles
     role_hse_manager: "HSE Manager",
     role_hse_officer: "Safety Officer",
@@ -126,7 +142,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   language: 'fa',
   themeColor: 'blue',
   companyLogo: null,
-  companyName: 'دیده‌بان هوشمند ایمنی و پاداش (HSE)'
+  companyName: 'SafeWatch AI'
 };
 
 export const MOCK_VIOLATIONS: Violation[] = [

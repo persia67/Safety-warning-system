@@ -3,7 +3,13 @@
   "appName": "SafeWatch AI",
   "webDir": "dist",
   "server": {
-    "androidScheme": "https"
+    "androidScheme": "https",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false,
+    "captureInput": true
   },
   "plugins": {
     "SplashScreen": {
